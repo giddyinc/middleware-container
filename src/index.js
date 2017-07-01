@@ -1,5 +1,6 @@
 'use strict';
 const connect = require('connect');
+require('proxy-polyfill');
 
 const handler = {
   get(target, propKey) {
