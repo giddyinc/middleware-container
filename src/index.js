@@ -9,12 +9,11 @@ const handler = {
         return target[propKey].apply(this, args);
       }
       const dep = args[0];
-      const graph = target.graph(args[0]);
-      const chain = graph
+      return target.graph(dep)
         .reverse()
-        .map(key => target.get(key));
-      chain.push(target.get(dep));
-      return chain.reduce((chain, middleware) => chain.use(middleware), connect());
+        .map(key => target.get(key))
+        .concat(target.get(dep))
+        .reduce((chain, middleware) => chain.use(middleware), connect());
     };
   }
 };
