@@ -48,16 +48,22 @@ describe('middlewares', () => {
     expect(middlewares).toExist();
   });
 
-  it('base case', () => {
-    return request.get('http://localhost:3000').send()
-      .then(res => expect(res.body).toEqual({}));
+  it('base case', done => {
+    request.get('http://localhost:3000').send()
+      .then(res => {
+        expect(res.body).toEqual({});
+        done();
+      }).catch(done);
   });
 
-  it('singular case', () => {
-    return request.get('http://localhost:3000/v').send()
-      .then(res => expect(res.body).toEqual({
-        v: 1
-      }));
+  it('singular case', done => {
+    request.get('http://localhost:3000/v').send()
+      .then(res => {
+        expect(res.body).toEqual({
+          v: 1
+        });
+        done();
+      }).catch(done);
   });
 
   it('dependent case', () => {
