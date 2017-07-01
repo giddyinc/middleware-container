@@ -1,4 +1,4 @@
-# middleware-container [![NPM version][npm-image]][npm-url] [![Build Status](https://travis-ci.org/giddyinc/middleware-container.svg?branch=master)](https://travis-ci.org/giddyinc/middleware-container) [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage Status](https://coveralls.io/repos/github/giddyinc/middleware-container/badge.svg?branch=master)](https://coveralls.io/github/giddyinc/middleware-container?branch=master) 
+# middleware-container [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
 
 # middleware-container
 
@@ -40,3 +40,8 @@ app.get('/foo', middlewares.get('getSomethingThatDependsOnThePrevious'), (req, r
     
 
 ```
+
+[npm-image]: https://badge.fury.io/js/middleware-container.svg
+[npm-url]: https://npmjs.org/package/middleware-container
+[travis-image]: https://travis-ci.org/giddyinc/middleware-container.svg?branch=master
+[travis-url]: https://travis-ci.org/giddyinc/middleware-container
