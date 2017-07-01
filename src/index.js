@@ -1,4 +1,6 @@
 'use strict';
+
+const Injector = require('boxed-injector').Injector;
 const connect = require('connect');
 require('proxy-polyfill');
 
@@ -18,6 +20,7 @@ const handler = {
   }
 };
 
-module.exports = injector => {
+module.exports = function () {
+  const injector = new Injector();
   return new Proxy(injector, handler);
 };

@@ -1,15 +1,13 @@
 'use strict';
 
 const expect = require('expect');
-const container = require('../src');
-const Injector = require('boxed-injector').Injector;
+const MiddlewareContainer = require('../src');
 const express = require('express');
 const request = require('superagent-bluebird-promise').agent();
 
 describe('middlewares', () => {
   let app;
   let server;
-  let injector;
   let middlewares;
   const assignNext = (obj, res, next) => {
     Object.assign(res.locals, obj);
@@ -18,8 +16,7 @@ describe('middlewares', () => {
   const sendLocals = (req, res) => res.send(res.locals);
   before(() => {
     app = express();
-    injector = new Injector();
-    middlewares = container(injector);
+    middlewares = new MiddlewareContainer();
     middlewares.register('getApiVersion', (req, res, next) => assignNext({
       v: 1
     }, res, next));

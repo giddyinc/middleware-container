@@ -20,10 +20,9 @@ The problem that this package solves is:
 middleware-container is built on top of [boxed-injector](https://github.com/giddyinc/boxed-injector)
 
 ```js
-const Injector = require('boxed-injector');
-const injector = new Injector();
+
 const MiddlewareContainer = require('middleware-container');
-const middlewares = MiddlewareContainer(injector);
+const middlewares = new MiddlewareContainer();
 
 middlewares.register('getOneThing', (req, res, next) => next());
 
