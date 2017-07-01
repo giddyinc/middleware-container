@@ -13,9 +13,8 @@ const handler = {
       const dep = args[0];
       return target.graph(dep)
         .reverse()
-        .map(key => target.get(key))
-        .concat(target.get(dep))
-        .reduce((chain, middleware) => chain.use(middleware), connect());
+        .concat(dep)
+        .reduce((chain, middleware) => chain.use(target.get(middleware)), connect());
     };
   }
 };
