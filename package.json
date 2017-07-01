@@ -1,0 +1,61 @@
+{
+  "name": "middleware-container",
+  "version": "0.0.0",
+  "description": "Middleware Chaining & Dependency Resolution",
+  "homepage": "",
+  "author": {
+    "name": "blugavere",
+    "email": "b.lugavere@gmail.com",
+    "url": "http://benlugavere.com"
+  },
+  "files": [
+    "dist"
+  ],
+  "private": true,
+  "main": "dist/index.js",
+  "keywords": [
+    "express",
+    "middleware",
+    "dependecy injection"
+  ],
+  "devDependencies": {
+    "babel-core": "^6.11.4",
+    "babel-eslint": "^6.1.2",
+    "babel-plugin-proxy": "1.1.0",
+    "babel-polyfill": "6.23.0",
+    "babel-preset-es2017": "6.24.1",
+    "babel-register": "^6.9.0",
+    "bluebird": "3.5.0",
+    "boxed-injector": "1.1.0",
+    "chalk": "^1.1.3",
+    "del": "^2.0.2",
+    "eslint": "^3.1.1",
+    "eslint-config-xo-space": "^0.15.0",
+    "eslint-plugin-babel": "^3.3.0",
+    "expect": "^1.20.2",
+    "express": "^4.14.1",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^6.1.2",
+    "gulp-coveralls": "^0.1.0",
+    "gulp-eslint": "^3.0.1",
+    "gulp-exclude-gitignore": "^1.0.0",
+    "gulp-istanbul": "^1.0.0",
+    "gulp-line-ending-corrector": "^1.0.1",
+    "gulp-mocha": "^3.0.1",
+    "gulp-nsp": "^2.1.0",
+    "gulp-plumber": "^1.0.0",
+    "isparta": "^4.0.0",
+    "mocha": "^3.2.0",
+    "sinon": "^1.17.7",
+    "superagent": "3.5.2",
+    "superagent-bluebird-promise": "4.2.0"
+  },
+  "repository": "git@github.com:giddyinc/middleware-container.git",
+  "scripts": {
+    "prepublish": "gulp prepublish",
+    "test": "gulp"
+  },
+  "dependencies": {
+    "connect": "3.6.2"
+  }
+}
