@@ -19,6 +19,7 @@
     "dependecy injection"
   ],
   "devDependencies": {
+    "babel-cli": "6.24.1",
     "babel-core": "^6.11.4",
     "babel-eslint": "^6.1.2",
     "babel-polyfill": "6.23.0",
