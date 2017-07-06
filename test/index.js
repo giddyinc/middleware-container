@@ -6,6 +6,7 @@ const express = require('express');
 const request = require('superagent-bluebird-promise').agent();
 const sinon = require('sinon');
 
+// mocha --watch
 describe('middlewares', () => {
   let app;
   let sandbox;
@@ -25,13 +26,18 @@ describe('middlewares', () => {
       next();
     };
 
+    middlewares.register('z', (req, res, next) => assignNext({
+      z: true
+    }, res, next));
+
     middlewares.register('getApiVersion', (req, res, next) => assignNext({
       v: 1
     }, res, next));
+
     middlewares.register('getBarry', (req, res, next) => assignNext({
       barry: 'barry'
     }, res, next), {
-      depends: 'getBaz'
+      depends: ['getBaz', 'z']
     });
 
     middlewares.register('getBaz', (req, res, next) => assignNext({
@@ -98,7 +104,8 @@ describe('middlewares', () => {
         v: 1,
         foo: 'bar',
         baz: 'baz',
-        barry: 'barry'
+        barry: 'barry',
+        z: true
       }));
   });
 
