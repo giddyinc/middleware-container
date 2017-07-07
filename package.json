@@ -31,8 +31,8 @@
     "eslint-plugin-babel": "^3.3.0",
     "expect": "^1.20.2",
     "express": "^4.14.1",
-    "isparta": "^4.0.0",
     "mocha": "3.0.0",
+    "nyc": "^11.0.3",
     "sinon": "2.3.6",
     "superagent": "3.5.2",
     "superagent-bluebird-promise": "4.2.0"
@@ -41,7 +41,8 @@
   "scripts": {
     "prepublish": "make prepublish",
     "test": "make tests",
-    "lint": "eslint src test"
+    "lint": "eslint src test",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "dependencies": {
     "boxed-injector": "1.1.1",

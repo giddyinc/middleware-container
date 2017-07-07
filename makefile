@@ -4,7 +4,7 @@ clean:
 
 tests: 
 	npm run lint
-	mocha --require babel-register
+	nyc mocha --require babel-register
 
 prepublish: clean
 	babel src --out-dir dist
