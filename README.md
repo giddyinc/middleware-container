@@ -1,4 +1,4 @@
-# middleware-container [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
+# middleware-container [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url]
 
 # middleware-container
 
@@ -44,3 +44,5 @@ app.get('/foo', middlewares.get('getSomethingThatDependsOnThePrevious'), (req, r
 [npm-url]: https://npmjs.org/package/middleware-container
 [travis-image]: https://travis-ci.org/giddyinc/middleware-container.svg?branch=master
 [travis-url]: https://travis-ci.org/giddyinc/middleware-container
+[coveralls-url]: https://coveralls.io/github/giddyinc/middleware-container?branch=master
+[coveralls-image]: https://coveralls.io/repos/github/giddyinc/middleware-container/badge.svg?branch=master
