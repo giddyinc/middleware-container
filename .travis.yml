@@ -1,8 +1,11 @@
 sudo: false
 language: node_js
 node_js:
-  - v4
+- v4
 cache:
   directories:
-    - node_modules
+  - node_modules
 after_success: npm run coverage
+env:
+  global:
+    secure: tBl0mdQSJb9W2Ah8QjAWzUVxdAv8Y5kOV/3GfE14FWg+oBfkBmTfVXNyMqnnPdRUfCKaXRTxQZhbuVdulfFhGFBtFqASQaaZ4wua1Cox5vrSV1ZBaKyxiRQ+3dZJOrLXgK0Gw/L/jYPUSfhGmfnehce0xg4rdYUGGAshH3mTvT2g9EIpJ0YxhkwNKrBLO3+9NZYTIaL87M3oAMJmvUufWkmF+aPZ7ugrM2pHQ/cOPftwc8Muh7JvCofJ9SKuebfGQ+1bU7hWXooMLkcWAPY7K3sY6TwENFw3x49LP3fVJznuG9smRpWgDGFH6ze+3OZ1aA6kqhUofsy8LfXdaqaoskQ30tgRWxWwvEVC+xdyypjqXZvDfnYFg2rzYU5IPJY72kvS3jK7sVavUSAh8gT/rwTk/EE18Vkzpg3j+Ekmfi4orvnNhG80XTCP/AMGZowTw+4zrVhOf7L7zlKdYvyRd21nWAH7xkpNzSa1zFO5HkNyu990QKFeI5vfNYZGImlmmjZfOf5NvsQ5XMWClj+55/8QjbIB8C7jsxyf0wIkx1W6HJfOCj42kXZUkrB4akzbBFCnGocYDMObaOukJphkOPdeHx5yvZX9+fBO1HUlNJIru2KWu0GgjpaYq2BjJW56Q7r7Wjt7mKvh09lPglBXYUbpSirohtFE3jxz6f9sLJ0=
