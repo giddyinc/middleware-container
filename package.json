@@ -36,7 +36,7 @@
   "license": "MIT",
   "repository": "git@github.com:giddyinc/middleware-container.git",
   "scripts": {
-    "clean": "rm -rf coverage dist",
+    "clean": "rm -rf coverage dist .nyc_output",
     "prepublish": "npm run clean && tsc",
     "test": "npm run lint && nyc mocha test/** --opts .mocharc",
     "lint": "tslint --project .",
