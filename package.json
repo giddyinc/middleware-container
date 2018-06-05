@@ -38,7 +38,7 @@
   "scripts": {
     "clean": "rm -rf coverage dist",
     "prepublish": "npm run clean && tsc",
-    "test": "npm run lint && mocha test/** --opts .mocharc",
+    "test": "npm run lint && nyc mocha test/** --opts .mocharc",
     "lint": "tslint --project .",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
