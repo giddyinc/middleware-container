@@ -1,29 +1,32 @@
 'use strict';
 
-const expect = require('expect');
-const MiddlewareContainer = require('../src');
-const express = require('express');
-const request = require('superagent-bluebird-promise').agent();
-const sinon = require('sinon');
+import expect from 'expect';
+import middlewareContainer from '../src';
+import express from 'express';
+import { get } from 'superagent';
+import sinon from 'sinon';
+import { Injector } from 'boxed-injector'; 
 
-// mocha --watch
+// mocha test/*.ts --opts .mocharc --watch
+
 describe('middlewares', () => {
   let app;
   let sandbox;
   let server;
-  let middlewares;
+  let middlewares: Injector;
   let spy;
 
   const sendLocals = (req, res) => res.send(res.locals);
-  before(done => {
-    sandbox = sinon.sandbox.create();
+  before((done) => {
+    sandbox = sinon.createSandbox();
     app = express();
 
-    middlewares = new MiddlewareContainer();
+    middlewares = middlewareContainer();
+
     const assignNext = (obj, res, next) => {
       Object.assign(res.locals, obj);
       spy();
-      next();
+      setImmediate(next);
     };
 
     middlewares.register('z', (req, res, next) => assignNext({
@@ -80,17 +83,17 @@ describe('middlewares', () => {
     expect(middlewares).toExist();
   });
 
-  it('base case', done => {
-    request.get('http://localhost:3000').send()
-      .then(res => {
+  it('base case', (done) => {
+    get('http://localhost:3000').send()
+      .then((res) => {
         expect(res.body).toEqual({});
         done();
       }).catch(done);
   });
 
-  it('singular case', done => {
-    request.get('http://localhost:3000/v').send()
-      .then(res => {
+  it('singular case', (done) => {
+    get('http://localhost:3000/v').send()
+      .then((res) => {
         expect(res.body).toEqual({
           v: 1
         });
@@ -99,8 +102,8 @@ describe('middlewares', () => {
   });
 
   it('dependent case', () => {
-    return request.get('http://localhost:3000/foo').send()
-      .then(res => expect(res.body).toEqual({
+    return get('http://localhost:3000/foo').send()
+      .then((res) => expect(res.body).toEqual({
         v: 1,
         foo: 'bar',
         baz: 'baz',
@@ -110,19 +113,20 @@ describe('middlewares', () => {
   });
 
   it('array case', () => {
-    return request.get('http://localhost:3000/bar').send()
-      .then(res => {
+    // console.log(middlewares.graph(['getBaz', 'getApiVersion', 'getBuzz']));
+    return get('http://localhost:3000/bar').send()
+      .then((res) => {
         expect(res.body).toEqual({
           v: 1,
           baz: 'baz'
         });
         expect(spy.called).toBe(true);
-        expect(spy.callCount).toEqual(4, 'exactly 4 middlewares should be called.');
+        expect(spy.callCount).toEqual(3, 'exactly 4 middlewares should be called.');
       });
   });
 
   it('not found case', () => {
-    return request.get('http://localhost:3000/cats').send()
-      .then(null, res => expect(res.status).toEqual(404));
+    return get('http://localhost:3000/cats').send()
+      .then(null, (res) => expect(res.status).toEqual(404));
   });
 });
