@@ -8,15 +8,16 @@ const handler: ProxyHandler<Injector> = {
       if (propKey !== 'get') {
         return target[propKey].apply(this, args);
       }
+
       const dep: string | string[] = args[0];
+
       // get the dependency graph
       return target.graph(dep)
-        // sorted in order of resolution
-        .reverse()
-        // ensure the requested node is in the graph
-        .concat(dep)
         // create a chained connect which combines all of the middlewares
-        .reduce((chain, middleware) => chain.use(target.get(middleware)), connect());
+        .reduce((chain, middleware) => {
+          chain.use(target.get(middleware));
+          return chain;
+        }, connect());
     };
   }
 };

@@ -13,25 +13,14 @@
         "removeComments": true,
         "sourceMap": true,
         "alwaysStrict": true,
-        "target": "es2017",
-        "typeRoots": [
-            "./typings",
-            "node_moduules/@types"
-        ],
-        "baseUrl": ".",
-        "paths": {
-            "*": [
-                "src/*",
-                "typings/*"
-            ]
-        }
+        "target": "es2017"
     },
     "include": [
         "src"
     ],
     "exclude": [
         "src/**/*.test.ts",
-        "node_modules/boxed-injector",
+        "node_modules",
         "test"
     ]
 }
