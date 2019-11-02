@@ -4,6 +4,9 @@ import connect from 'connect';
 
 const handler: ProxyHandler<Injector> = {
   get(target, propKey) {
+    if (propKey === '__target') {
+        return target;
+    }
     return function(...args) {
       if (propKey !== 'get') {
         return target[propKey].apply(this, args);
