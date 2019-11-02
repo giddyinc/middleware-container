@@ -80,6 +80,10 @@ describe('middlewares', () => {
     expect(middlewares).exist;
   });
 
+  it('should return scalar props', () => {
+    expect((middlewares as any).cyclicDependencyThreshhold).to.be.a('Number');
+  });
+
   it('base case', (done) => {
     request.get('http://localhost:3000').send()
       .then((res) => {

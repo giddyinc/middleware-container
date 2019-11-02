@@ -7,6 +7,9 @@ const handler: ProxyHandler<Injector> = {
     if (propKey === '__target') {
         return target;
     }
+    if(typeof target[propKey] !== 'function') {
+      return target[propKey];
+    }
     return function(...args) {
       if (propKey !== 'get') {
         return target[propKey].apply(this, args);
