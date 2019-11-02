@@ -1,24 +1,21 @@
-'use strict';
 
-import expect from 'expect';
+import { expect } from 'chai';
 import middlewareContainer from '../src';
 import express from 'express';
-import { get } from 'superagent';
+import request from 'superagent';
 import sinon from 'sinon';
-import { Injector } from 'boxed-injector'; 
+import { Injector } from 'boxed-injector';
 
-// mocha test/*.ts --opts .mocharc --watch
+// mocha test/*.ts --watch
 
 describe('middlewares', () => {
   let app;
-  let sandbox;
   let server;
   let middlewares: Injector;
   let spy;
 
   const sendLocals = (req, res) => res.send(res.locals);
   before((done) => {
-    sandbox = sinon.createSandbox();
     app = express();
 
     middlewares = middlewareContainer();
@@ -70,31 +67,31 @@ describe('middlewares', () => {
   });
 
   beforeEach(() => {
-    spy = sandbox.spy();
+    spy = sinon.spy();
   });
 
-  afterEach(() => sandbox.restore());
+  afterEach(() => sinon.restore());
 
   after(() => {
     server.close();
   });
 
   it('should export something', () => {
-    expect(middlewares).toExist();
+    expect(middlewares).exist;
   });
 
   it('base case', (done) => {
-    get('http://localhost:3000').send()
+    request.get('http://localhost:3000').send()
       .then((res) => {
-        expect(res.body).toEqual({});
+        expect(res.body).to.deep.equal({});
         done();
       }).catch(done);
   });
 
   it('singular case', (done) => {
-    get('http://localhost:3000/v').send()
+    request.get('http://localhost:3000/v').send()
       .then((res) => {
-        expect(res.body).toEqual({
+        expect(res.body).to.deep.equal({
           v: 1
         });
         done();
@@ -102,8 +99,8 @@ describe('middlewares', () => {
   });
 
   it('dependent case', () => {
-    return get('http://localhost:3000/foo').send()
-      .then((res) => expect(res.body).toEqual({
+    return request.get('http://localhost:3000/foo').send()
+      .then((res) => expect(res.body).to.deep.equal({
         v: 1,
         foo: 'bar',
         baz: 'baz',
@@ -114,19 +111,19 @@ describe('middlewares', () => {
 
   it('array case', () => {
     // console.log(middlewares.graph(['getBaz', 'getApiVersion', 'getBuzz']));
-    return get('http://localhost:3000/bar').send()
+    return request.get('http://localhost:3000/bar').send()
       .then((res) => {
-        expect(res.body).toEqual({
+        expect(res.body).to.deep.equal({
           v: 1,
           baz: 'baz'
         });
-        expect(spy.called).toBe(true);
-        expect(spy.callCount).toEqual(3, 'exactly 4 middlewares should be called.');
+        expect(spy.called).to.equal(true);
+        expect(spy.callCount).to.equal(3, 'exactly 4 middlewares should be called.');
       });
   });
 
   it('not found case', () => {
-    return get('http://localhost:3000/cats').send()
-      .then(null, (res) => expect(res.status).toEqual(404));
+    return request.get('http://localhost:3000/cats').send()
+      .then(null, (res) => expect(res.status).to.equal(404));
   });
 });
