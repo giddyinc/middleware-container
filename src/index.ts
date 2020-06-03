@@ -2,6 +2,7 @@
 import { Injector } from 'boxed-injector';
 import connect from 'connect';
 import parallel from 'async.parallel';
+import { RequestHandler } from 'express';
 
 const handler: ProxyHandler<Injector> = {
   get(target, propKey) {
@@ -22,24 +23,23 @@ const handler: ProxyHandler<Injector> = {
       const graph = target.graph(dep);
       // console.log(graph);
 
-      const [ parallelizable, sequence ] = graph
-        .reduce((maps, middleware) => {
-          const [ parallelizable, sequence ] = maps;
+      const [ parallelizable, sequential ] = graph
+        .reduce((groups, middleware) => {
+          const [ parallelizable, sequential ] = groups;
           // @ts-ignore
           const dependencies = target.instances?.[middleware]?.depends ?? [];
           if(dependencies.length > 0) {
-            sequence.push(middleware);
+            sequential.push(middleware);
           } else {
             parallelizable.push(middleware);
           }
-          return maps;
+          return groups;
         }, [[], []] as Readonly<[string[], string[]]>);
 
-      const combinedParallelizable = (req, res, next) => {
-        const wares = parallelizable
-          .map(mw => target.get(mw))
-          .map(mw => next => mw(req, res, next));
-        return parallel(wares, next);
+      const parallelMiddleware = parallelizable.map(mw => target.get(mw));
+      const combinedParallelizable: RequestHandler = (req, res, next) => {
+        const asyncFns = parallelMiddleware.map(mw => next => mw(req, res, next));
+        return parallel(asyncFns, next);
       };
 
       const middleware = connect();
@@ -49,9 +49,9 @@ const handler: ProxyHandler<Injector> = {
         middleware.use(combinedParallelizable);
       }
 
-      // console.log('sequencing middlewares: ', sequence);
+      // console.log('sequencing middlewares: ', sequential);
 
-      return sequence
+      return sequential
         // create a chained connect which combines all of the middlewares
         .reduce((chain, middleware) => {
           chain.use(target.get(middleware));
