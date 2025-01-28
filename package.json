@@ -1,11 +1,11 @@
 {
-  "name": "middleware-container",
+  "name": "@boxed/middleware-container",
   "version": "0.3.0",
   "description": "Middleware Chaining & Dependency Resolution",
   "author": {
-    "name": "blugavere",
-    "email": "b.lugavere@gmail.com",
-    "url": "http://benlugavere.com"
+    "name": "Spresso Engineering",
+    "email": "engineering@spresso.ai",
+    "url": "https://spresso.ai"
   },
   "files": [
     "dist"
