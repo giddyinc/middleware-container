@@ -1,20 +1,29 @@
+"use strict";
 
 module.exports = {
-    "extends": "eslint:recommended",
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        ecmaVersion: 9,
-        sourceType: "module",
-        experimentalObjectRestSpread: true
+  parser: "@typescript-eslint/parser",
+  settings: {
+    "import/extensions": [".js"],
+    "import/resolver": {
+      typescript: {},
+      node: {
+        extensions: [".js", ".json", ".ts"],
+      },
     },
-    env: {
-        es6: true,
-        node: true,
-        mocha: true
-    },
-    rules: {
-        'no-unused-vars': 0,
-        'no-console': 0,
-        "semi": [2, "always"],
-    },
+  },
+  parserOptions: {
+    ecmaVersion: 9,
+    sourceType: "module",
+    experimentalObjectRestSpread: true,
+    project: ["./tsconfig.json"],
+    tsconfigRootDir: __dirname,
+  },
+  extends: ["@boxed/eslint-config-style-guide/nodejs", "prettier"],
+  globals: {
+    NodeJS: true,
+  },
+  plugins: ["@typescript-eslint"],
+  overrides: [],
+  rules: {},
+  root: true,
 };

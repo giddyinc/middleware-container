@@ -2,4 +2,3 @@ node_modules
 coverage
 dist
 *.log
-.nyc_output
