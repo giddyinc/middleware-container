@@ -1,16 +1,16 @@
-import { Injector } from "boxed-injector";
-import connect from "connect";
+import { Injector } from 'boxed-injector';
+import connect from 'connect';
 
 const handler: ProxyHandler<Injector> = {
   get(target, propKey) {
-    if (propKey === "__target") {
+    if (propKey === '__target') {
       return target;
     }
-    if (typeof target[propKey] !== "function") {
+    if (typeof target[propKey] !== 'function') {
       return target[propKey];
     }
     return function (...args) {
-      if (propKey !== "get") {
+      if (propKey !== 'get') {
         return target[propKey].apply(this, args);
       }
 
@@ -28,6 +28,11 @@ const handler: ProxyHandler<Injector> = {
       );
     };
   },
+};
+
+export const init = () => {
+  const injector = new Injector();
+  return new Proxy(injector, handler);
 };
 
 export default function () {
