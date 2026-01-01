@@ -30,7 +30,7 @@
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-import-resolver-typescript": "^3.7.0",
-    "express": "^4.21.2",
+    "express": "^4.22.1",
     "mocha": "^11.1.0",
     "sinon": "7.5.0",
     "source-map-support": "0.5.16",
